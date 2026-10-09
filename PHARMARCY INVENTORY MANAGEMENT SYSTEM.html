@@ -1,0 +1,438 @@
+// Musni, Ashly
+//Sumagdon, Johanna
+
+<html>
+<head>
+    <title>Pharmacy Inventory System</title>
+    
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💊 Pharmacy Inventory System</h1>
+
+    <lagay ako note dito yung nasa taas yung may mga low stock etc. dito kayo eedit if may gusto kayo edit>
+    <div class="summary">
+
+        <div class="card">
+            <h3>Total Medicines</h3>
+            <p id="totalMedicines">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Stock</h3>
+            <p id="totalStock">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Low Stock</h3>
+            <p id="lowStock">0</p>
+        </div>
+
+    </div>
+
+
+    
+    <div class="top">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search medicine..."
+            onkeyup="searchMedicine()"
+        >
+
+        <button class="add-button" onclick="showAddForm()">
+            + Add Medicine
+        </button>
+
+    </div>
+
+
+   
+    <div id="addForm">
+
+        <h2>Add New Medicine</h2>
+
+        <input
+            type="text"
+            id="medicineName"
+            placeholder="Medicine Name"
+        >
+
+        <select id="category">
+            <option value="">Select Category</option>
+            <option>Pain Reliever</option>
+            <option>Antibiotic</option>
+            <option>Antihistamine</option>
+            <option>Cough Medicine</option>
+            <option>Heart Medicine</option>
+            <option>Blood Pressure</option>
+            <option>Anti-inflammatory</option>
+            <option>Gastric Medicine</option>
+            <option>Prescription Medicine</option>
+            <option>Other</option>
+        </select>
+
+        <input
+            type="number"
+            id="stock"
+            placeholder="Stock"
+            min="0"
+        >
+
+        <input
+            type="number"
+            id="price"
+            placeholder="Price"
+            min="0"
+            step="0.01"
+        >
+
+        <br>
+
+        <button class="save-button" onclick="addMedicine()">
+            Save Medicine
+        </button>
+
+        <button class="cancel-button" onclick="hideAddForm()">
+            Cancel
+        </button>
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Medicine Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="medicineTable">
+
+            
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    
+    let medicineID = 1;
+
+
+    
+    let medicines = [
+        ["Acetaminophen", "Pain Reliever", 50, 5.00],
+        ["Amoxicillin", "Antibiotic", 30, 12.00],
+        ["Benzonatate", "Cough Medicine", 20, 15.00],
+        ["Cetirizine", "Antihistamine", 40, 8.00],
+        ["Dupixent", "Other", 10, 500.00],
+        ["Entresto", "Heart Medicine", 15, 35.00],
+        ["Gabapentin", "Other", 25, 10.00],
+        ["Ibuprofen", "Pain Reliever", 45, 6.00],
+        ["Lisinopril", "Blood Pressure", 18, 9.00],
+        ["Meloxicam", "Anti-inflammatory", 22, 11.00],
+        ["Omeprazole", "Gastric Medicine", 35, 7.00],
+        ["Prednisone", "Prescription Medicine", 12, 10.00],
+        ["Trazodone", "Prescription Medicine", 8, 13.00],
+        ["Viagra", "Prescription Medicine", 10, 50.00]
+    ];
+
+
+    
+    function showAddForm() {
+
+        document.getElementById("addForm").style.display = "block";
+
+    }
+
+
+
+    function hideAddForm() {
+
+        document.getElementById("addForm").style.display = "none";
+
+        document.getElementById("medicineName").value = "";
+        document.getElementById("category").value = "";
+        document.getElementById("stock").value = "";
+        document.getElementById("price").value = "";
+
+    }
+
+
+    
+    function addMedicine() {
+
+        let name = document.getElementById("medicineName").value;
+        let category = document.getElementById("category").value;
+        let stock = document.getElementById("stock").value;
+        let price = document.getElementById("price").value;
+
+
+        if (
+            name === "" ||
+            category === "" ||
+            stock === "" ||
+            price === ""
+        ) {
+
+            alert("Please complete all fields.");
+
+            return;
+        }
+
+
+       
+        medicines.push([
+            name,
+            category,
+            parseInt(stock),
+            parseFloat(price)
+        ]);
+
+
+       
+        displayMedicines();
+
+        
+        hideAddForm();
+
+        alert(name + " has been added successfully!");
+
+    }
+
+
+   
+    function displayMedicines() {
+
+        let table = document.getElementById("medicineTable");
+
+        table.innerHTML = "";
+
+
+        for (let i = 0; i < medicines.length; i++) {
+
+            let medicine = medicines[i];
+
+            let name = medicine[0];
+            let category = medicine[1];
+            let stock = medicine[2];
+            let price = medicine[3];
+
+
+            let status;
+            let statusClass;
+
+
+            if (stock <= 10) {
+
+                status = "Low Stock";
+                statusClass = "low";
+
+            } else {
+
+                status = "Available";
+                statusClass = "available";
+
+            }
+
+
+            let row = `
+                <tr>
+
+                    <td>${i + 1}</td>
+
+                    <td>${name}</td>
+
+                    <td>${category}</td>
+
+                    <td>${stock}</td>
+
+                    <td>₱${price.toFixed(2)}</td>
+
+                    <td class="${statusClass}">
+                        ${status}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="stock-button"
+                            onclick="addStock(${i})">
+                            + Stock
+                        </button>
+
+                        <button
+                            class="delete-button"
+                            onclick="deleteMedicine(${i})">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+
+            table.innerHTML += row;
+
+        }
+
+
+        updateSummary();
+
+    }
+
+
+  
+    function addStock(index) {
+
+        let quantity = prompt(
+            "How many stocks do you want to add?"
+        );
+
+
+        if (quantity === null || quantity === "") {
+
+            return;
+
+        }
+
+
+        quantity = parseInt(quantity);
+
+
+        if (isNaN(quantity) || quantity <= 0) {
+
+            alert("Please enter a valid quantity.");
+
+            return;
+
+        }
+
+
+        medicines[index][2] += quantity;
+
+
+        displayMedicines();
+
+    }
+
+
+    
+    function deleteMedicine(index) {
+
+        let name = medicines[index][0];
+
+
+        let confirmDelete = confirm(
+            "Are you sure you want to delete " + name + "?"
+        );
+
+
+        if (confirmDelete) {
+
+            medicines.splice(index, 1);
+
+            displayMedicines();
+
+        }
+
+    }
+
+
+    // eto naman yung search medicine lalagay ako note para pag may iibahin kayo
+    function searchMedicine() {
+
+        let search = document
+            .getElementById("search")
+            .value
+            .toLowerCase();
+
+
+        let rows = document
+            .getElementById("medicineTable")
+            .getElementsByTagName("tr");
+
+
+        for (let i = 0; i < rows.length; i++) {
+
+            let medicineName =
+                rows[i].cells[1].innerText.toLowerCase();
+
+
+            if (medicineName.includes(search)) {
+
+                rows[i].style.display = "";
+
+            } else {
+
+                rows[i].style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+   
+    function updateSummary() {
+
+        let totalMedicines = medicines.length;
+
+        let totalStock = 0;
+
+        let lowStock = 0;
+
+
+        for (let i = 0; i < medicines.length; i++) {
+
+            totalStock += medicines[i][2];
+
+
+            if (medicines[i][2] <= 10) {
+
+                lowStock++;
+
+            }
+
+        }
+
+
+        document.getElementById("totalMedicines").innerText =
+            totalMedicines;
+
+        document.getElementById("totalStock").innerText =
+            totalStock;
+
+        document.getElementById("lowStock").innerText =
+            lowStock;
+
+    }
+
+
+    displayMedicines();
+
+</script>
+
+</body>
+</html>
+```
