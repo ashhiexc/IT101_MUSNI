@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   G-Value Pharmacy | Management System
+  </title>
+  <style>
+   :root{--deep:#174b43;--deep2:#0f3c35;--teal:#3f9b8a;--mint:#7ed8c0;--pale:#eaf5f1;--ink:#193c37;--muted:#718b85;--white:#fff;--line:#dce9e5;--shadow:0 8px 24px #103e3517}
+*{box-sizing:border-box}body{margin:0;font:13px/1.45 "Segoe UI",Arial,sans-serif;color:var(--ink);background:#f2f7f5}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:block}
+.sidebar{display:none!important}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px;border-bottom:1px solid #ffffff26}
+.logo{width:40px;height:40px;border-radius:12px;background:#d8fff2;color:#176454;display:grid;place-items:center;font-size:22px;font-weight:800}
+.brand h1{font-size:16px;margin:0;line-height:1.15}.brand small{color:#a8d7ca;font-size:10px}
+.nav-label{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8fc2b5;padding:0 12px;margin:2px 0 8px}
+.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#c5e4dc;padding:11px 12px;text-align:left;border-radius:9px;display:flex;align-items:center;gap:12px;transition:.2s}
+.nav button:hover,.nav button.active{background:#ffffff20;color:#fff}.nav button.active{box-shadow:inset 3px 0 #8ae2c9}
+.nav .ico{width:20px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;border-top:1px solid #ffffff26;padding:15px 8px 0;color:#a9d5ca;font-size:11px}
+main{min-width:0;padding:25px clamp(16px,3vw,36px) 95px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+.eyebrow{color:#5d9789;font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase}
+h2{font-size:25px;margin:3px 0 0;letter-spacing:-.6px}.top-actions{display:flex;align-items:center;gap:10px}
+.search{position:relative}.search input{width:230px;border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px 10px 35px;outline:none}.search:before{content:"⌕";position:absolute;left:12px;top:5px;font-size:22px;color:#6e9990}
+.profile{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:6px 10px}.avatar{width:30px;height:30px;border-radius:9px;background:#c7eee1;display:grid;place-items:center;color:#176454;font-weight:800}.profile strong{display:block;font-size:11px}.profile small{display:block;color:var(--muted);font-size:10px}
+.page{display:none;animation:fade .2s ease}.page.active{display:block}@keyframes fade{from{opacity:.55;transform:translateY(3px)}to{opacity:1;transform:none}}
+.page-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:19px}.page-heading p{margin:5px 0 0;color:var(--muted)}.page-heading h3{font-size:18px;margin:0}
+.btn{border:0;background:var(--deep);color:#fff;border-radius:8px;padding:10px 14px;font-weight:650}.btn:hover{background:#267263}.btn.light{background:#e1f3ed;color:#236b5d}.btn.small{padding:7px 10px;font-size:11px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid #e5efeb;border-radius:13px;padding:17px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-20px;top:-25px;width:75px;height:75px;border-radius:50%;background:#e9f7f2}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px}.stat-icon{z-index:1;background:#e3f5ee;color:#2a8875;width:31px;height:31px;border-radius:9px;display:grid;place-items:center;font-size:16px}.stat strong{display:block;font-size:25px;letter-spacing:-.7px;margin:9px 0 4px}.stat small{color:#4d9c82;font-size:10px}.stat small.negative{color:#d47d70}
+.panel{background:#fff;border:1px solid #e3eeea;border-radius:13px;box-shadow:var(--shadow);padding:18px;margin-bottom:18px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.panel-head h3{font-size:14px;margin:0}.panel-head p{color:var(--muted);font-size:11px;margin:4px 0 0}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(270px,1fr);gap:18px}.chart{height:220px;display:flex;align-items:end;gap:clamp(8px,2vw,20px);padding:15px 8px 0;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0,transparent 49px,#edf4f1 50px)}
+.bar-wrap{flex:1;display:flex;align-items:center;justify-content:end;flex-direction:column;height:100%;gap:8px;color:var(--muted);font-size:10px}.bar{width:min(42px,80%);border-radius:6px 6px 0 0;background:linear-gradient(180deg,#7ed8b9,#27927a);position:relative;min-height:8px}.bar:hover{filter:brightness(.94)}.bar span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);color:#4b8378;font-size:9px;white-space:nowrap}
+.donut-row{display:flex;align-items:center;justify-content:space-around;gap:16px;padding:10px 0}.donut{width:140px;height:140px;border-radius:50%;background:conic-gradient(#248d72 0 42%,#8bdcbe 42% 73%,#d7f2e8 73% 100%);display:grid;place-items:center;position:relative}.donut:after{content:"";position:absolute;inset:28px;background:#fff;border-radius:50%}.donut-label{z-index:1;text-align:center}.donut-label strong{display:block;font-size:23px}.donut-label small{font-size:10px;color:var(--muted)}.legend{display:grid;gap:12px;font-size:11px;color:#5d7771}.legend span{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:7px}
+.table-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:13px}.table-tools input,.table-tools select{border:1px solid var(--line);background:#fbfdfc;border-radius:8px;padding:9px 10px;color:var(--ink);outline:none}.table-tools input{min-width:190px;flex:1}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{width:100%;border-collapse:collapse;white-space:nowrap;text-align:left}thead{background:#edf7f3;color:#537d73}th{font-size:10px;text-transform:uppercase;letter-spacing:.5px;padding:12px 14px;font-weight:700}td{padding:12px 14px;border-top:1px solid #edf2f0;font-size:11px}tbody tr:hover{background:#f8fcfa}.pill{display:inline-flex;align-items:center;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:700;background:#e5f7ef;color:#28795f}.pill.warn{background:#fff3dc;color:#a87622}.pill.danger{background:#ffe8e4;color:#bd594c}.pill.gray{background:#edf1f0;color:#71827d}
+.order-tabs{display:flex;gap:6px;background:#f0f6f3;padding:4px;border-radius:9px}.order-tabs button{border:0;background:transparent;color:#69837b;padding:7px 12px;border-radius:7px;font-size:11px}.order-tabs button.active{background:#fff;color:#247c67;box-shadow:0 2px 6px #174b4310;font-weight:700}
+.empty{padding:35px 15px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--ink);margin-bottom:5px}
+.category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.category{border:1px solid var(--line);background:#fff;border-radius:12px;padding:16px;text-align:left;box-shadow:var(--shadow);transition:.2s}.category:hover{transform:translateY(-2px);border-color:#9bd7c5}.category .cat-icon{width:38px;height:38px;border-radius:11px;background:#e2f6ed;display:grid;place-items:center;font-size:18px;margin-bottom:12px}.category strong{display:block;font-size:12px}.category small{color:var(--muted);font-size:10px}.category b{display:block;font-size:21px;margin-top:9px}
+.notice{border-radius:10px;padding:12px 14px;background:#e8f7f0;color:#357d69;font-size:11px;margin-bottom:15px}.footer{color:#89a19a;text-align:center;font-size:10px;padding:12px}
+.bottom-nav{position:fixed;z-index:15;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:7px;background:linear-gradient(135deg,#278b78,#12483f);border:1px solid #ffffff30;border-radius:13px;box-shadow:0 8px 24px #103e3538}.bottom-nav button{min-width:57px;border:0;background:transparent;color:#c8e9df;border-radius:8px;padding:7px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px}.bottom-nav button span{font-size:17px;line-height:1.1}.bottom-nav button:hover,.bottom-nav button.active{background:#ffffff24;color:#fff}.bottom-nav button.active{box-shadow:inset 0 -2px #8be0c6}.toast{position:fixed;right:22px;bottom:82px;background:#164b41;color:white;padding:13px 17px;border-radius:10px;box-shadow:0 8px 25px #123e3540;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:none}
+.mobile-menu{display:none;border:0;background:#e3f4ed;border-radius:8px;padding:9px}
+@media(max-width:1050px){.app{display:block}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-grid{grid-template-columns:1fr}}
+@media(max-width:700px){main{padding-bottom:105px}.bottom-nav{bottom:9px;width:calc(100% - 24px);justify-content:space-around}.bottom-nav button{flex:1;min-width:0;padding:7px 4px}.app{display:block}.sidebar{position:fixed;z-index:20;top:0;bottom:0;left:-260px;width:238px;transition:left .25s;box-shadow:0 0 0 100vmax #092d2722}.sidebar.open{left:0}.mobile-menu{display:block}.topbar{align-items:flex-start}.top-actions{gap:6px}.search{display:none}.profile{padding:5px}.profile small{display:none}main{padding:17px 13px}.page-heading{align-items:flex-start;flex-direction:column}.cards{gap:9px}.stat{padding:13px}.stat strong{font-size:21px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{display:block}.panel{padding:13px}.donut-row{flex-wrap:wrap}}
+
+.add-modal{display:none;position:fixed;inset:0;z-index:100;background:#082f2a88;align-items:center;justify-content:center;padding:16px}
+.add-modal.show{display:flex}.add-dialog{background:#fff;width:min(520px,100%);max-height:90vh;overflow:auto;border-radius:16px;padding:22px;box-shadow:0 20px 60px #082f2a40}
+.add-dialog h3{margin:0 0 5px;font-size:20px}.add-dialog p{margin:0 0 18px;color:var(--muted)}.add-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.add-field{display:flex;flex-direction:column;gap:6px}.add-field.full{grid-column:1/-1}.add-field label{font-size:12px;font-weight:650}.add-field input,.add-field select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fbfdfc;color:var(--ink)}.add-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+@media(max-width:500px){.add-form{grid-template-columns:1fr}.add-field.full{grid-column:auto}}
+  </style>
+ </head>
+ <body>
+  <div class="app">
+   <aside class="sidebar" id="sidebar">
+    <div class="brand">
+     <div class="logo">
+      ✚
+     </div>
+     <div>
+      <h1>
+       G-Value Pharmacy
+      </h1>
+      <small>
+       PHARMACY MANAGEMENT
+      </small>
+     </div>
+    </div>
+    <div>
+     <div class="nav-label">
+      Main menu
+     </div>
+     <nav class="nav" id="nav">
+      <button class="active" data-page="overview">
+       <span class="ico">
+        ▦
+       </span>
+       Overview
+      </button>
+      <button data-page="products">
+       <span class="ico">
+        ▣
+       </span>
+       Products
+      </button>
+      <button data-page="stock">
+       <span class="ico">
+        ▤
+       </span>
+       Stock Out Medicines
+      </button>
+      <button data-page="expired">
+       <span class="ico">
+        ◷
+       </span>
+       Expired Medicines
+      </button>
+      <button data-page="sales">
+       <span class="ico">
+        ▥
+       </span>
+       Total Sales
+      </button>
+      <button data-page="orders">
+       <span class="ico">
+        🛒
+       </span>
+       Orders
+      </button>
+     </nav>
+    </div>
+    <div>
+     <div class="nav-label">
+    Product categories
+     </div>
+     <nav class="nav" id="categoryNav">
+      <button data-category="Antibiotics" data-page="category">
+       <span class="ico">
+        ✚
+       </span>
+       Antibiotics
+      </button>
+      <button data-category="Pain Relievers" data-page="category">
+       <span class="ico">
+        ✦
+       </span>
+      Pain Relievers
+      </button>
+      <button data-category="Vitamins &amp; Supplements" data-page="category">
+       <span class="ico">
+        ❋
+       </span>
+       Vitamins &amp; Supplements
+      </button>
+      <button data-category="Antiviral Drugs" data-page="category">
+       <span class="ico">
+        ◈
+       </span>
+        Antiviral Drugs
+      </button>
+      <button data-category="Diabetes Care" data-page="category">
+       <span class="ico">
+        ⌁
+       </span>
+        Diabetes Care
+      </button>
+      <button data-category="Cardiovascular" data-page="category">
+       <span class="ico">
+        ♡
+       </span>
+     Cardiovascular
+      </button>
+      <button data-category="Allergy Medications" data-page="category">
+       <span class="ico">
+        ☼
+       </span>
+     Allergy Medications
+      </button>
+      <button data-category="Respiratory Medicines" data-page="category">
+       <span class="ico">
+        ≋
+       </span>
+     Respiratory Medicines
+      </button>
+     </nav>
+    </div>
+    <div class="side-bottom">
+     ● System online
+     <br/>
+     <br/>
+     G-Value Pharmacy © 2025
+    </div>
+   </aside>
+   <main>
+    <header class="topbar">
+     <div style="display:flex;align-items:center;gap:11px">
+      <div>
+       <div class="eyebrow">
+     Pharmacy Dashboard
+       </div>
+       <h2 id="pageTitle">
+        Overview
+       </h2>
+      </div>
+     </div>
+     <div class="top-actions">
+      <div class="search">
+       <input id="globalSearch" placeholder="Search medicines or orders…"/>
+      </div>
+      <div class="profile">
+       <div class="avatar">
+        GV
+       </div>
+       <div>
+        <strong>
+    Administrator
+        </strong>
+        <small>
+    Pharmacy Admin
+        </small>
+       </div>
+      </div>
+     </div>
+    </header>
+    <section class="page active" id="page-overview">
+     <div class="page-heading">
+      <div>
+    Overview
+       <h3>
+        Good day, Administrator 👋
+       </h3>
+       <p>
+        Here's what's happening at your pharmacy today.
+       </p>
+      </div>
+      <button class="btn" onclick="exportCSV()">
+       ⇩ Export report
+      </button>
+     </div>
+     <div class="cards">
+      <div class="stat">
+       <div class="stat-top">
+     Total Products
+        <span class="stat-icon">
+         ▣
+        </span>
+       </div>
+       <strong id="statProducts">
+        3,358
+       </strong>
+       <small>
+     ↑ Inventory records
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+     Low Stock Items
+        <span class="stat-icon">
+         ⚠
+        </span>
+       </div>
+       <strong id="statLow">
+        120
+       </strong>
+       <small class="negative">
+      Needs replenishment
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+     Total Orders
+        <span class="stat-icon">
+         🛒
+        </span>
+       </div>
+       <strong>
+        2,358
+       </strong>
+       <small>
+        ↑ Order records
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Completed Orders
+        <span class="stat-icon">
+         ✓
+        </span>
+       </div>
+       <strong>
+        892
+       </strong>
+       <small>
+        ↑ Successfully fulfilled
+       </small>
+      </div>
+     </div>
+     <div class="dashboard-grid">
+      <div class="panel">
+       <div class="panel-head">
+        <div>
+         <h3>
+         Sales Overview
+         </h3>
+         <p>
+          Revenue performance for the last 6 months
+         </p>
+        </div>
+        <select id="chartPeriod" onchange="updateChart(this.value)">
+         <option value="6">
+          Last 6 months
+         </option>
+         <option value="4">
+          Last 4 months
+         </option>
+         <option value="3">
+          Last 3 months
+         </option>
+        </select>
+       </div>
+       <div class="chart" id="salesChart">
+       </div>
+      </div>
+      <div class="panel">
+       <div class="panel-head">
+        <div>
+         <h3>
+          Inventory Summary
+         </h3>
+         <p>
+          Current stock distribution
+         </p>
+        </div>
+        <button class="btn light small" onclick="navigate('products')">
+         View products
+        </button>
+       </div>
+       <div class="donut-row">
+        <div class="donut">
+         <div class="donut-label">
+          <strong id="inventorySummaryCount">
+           0
+          </strong>
+          <small>
+           Product records
+          </small>
+         </div>
+        </div>
+        <div class="legend">
+         <div>
+          <span style="background:#248d72">
+          </span>
+          In stock
+          <b id="inventoryInStockPct">
+           0%
+          </b>
+         </div>
+         <div>
+          <span style="background:#8bdcbe">
+          </span>
+          Low stock
+          <b id="inventoryLowStockPct">
+           0%
+          </b>
+         </div>
+         <div>
+          <span style="background:#d7f2e8">
+          </span>
+          Out of stock
+          <b id="inventoryOutStockPct">
+           0%
+          </b>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="panel">
+      <div class="panel-head">
+       <div>
+        <h3>
+         Recent Orders
+        </h3>
+        <p>
+         Latest order activity
+        </p>
+       </div>
+       <button class="btn light small" onclick="navigate('orders')">
+        View all orders →
+       </button>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Order ID
+          </th>
+          <th>
+           Product Ordered
+          </th>
+          <th>
+           Total Amount
+          </th>
+          <th>
+           Date / Time
+          </th>
+          <th>
+           Status
+          </th>
+         </tr>
+        </thead>
+        <tbody id="recentOrders">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-products">
+     <div class="page-heading">
+      <div>
+       <h3>
+        Products
+       </h3>
+       <p>
+        Manage your medicine inventory and product categories.
+       </p>
+      </div>
+      <button class="btn" onclick="openAddProduct()">
+       ＋ Add product
+      </button>
+     </div>
+     <div class="cards">
+      <div class="stat">
+       <div class="stat-top">
+        Total Products
+        <span class="stat-icon">
+         ▣
+        </span>
+       </div>
+       <strong id="productsTotalCount">
+        0
+       </strong>
+       <small>
+        Across all categories
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Categories
+        <span class="stat-icon">
+         ▦
+        </span>
+       </div>
+       <strong>
+        8
+       </strong>
+       <small>
+        Medicine groups
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Low Stock
+        <span class="stat-icon">
+         ⚠
+        </span>
+       </div>
+       <strong id="productsLowCount">
+        0
+       </strong>
+       <small class="negative">
+        Review stock levels
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Out of Stock
+        <span class="stat-icon">
+         ⊘
+        </span>
+       </div>
+       <strong id="productsOutCount">
+        0
+       </strong>
+       <small class="negative">
+        Restock needed
+       </small>
+      </div>
+     </div>
+     <div class="category-grid" id="categoryCards">
+     </div>
+     <div class="panel" style="margin-top:18px">
+      <div class="panel-head">
+       <div>
+        <h3>
+         All Products
+        </h3>
+        <p>
+         Search, filter, or export your inventory.
+        </p>
+       </div>
+       <button class="btn light small" onclick="exportCSV()">
+        ⇩ Export CSV
+       </button>
+      </div>
+      <div class="table-tools">
+       <input id="productSearch" oninput="renderProducts()" placeholder="Search product name…"/>
+       <select id="productCategory" onchange="renderProducts()">
+        <option value="">
+         All categories
+        </option>
+       </select>
+       <select id="stockFilter" onchange="renderProducts()">
+        <option value="">
+         All stock levels
+        </option>
+        <option>
+         In Stock
+        </option>
+        <option>
+         Low Stock
+        </option>
+        <option>
+         Out of Stock
+        </option>
+       </select>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Product Name
+          </th>
+          <th>
+           Category
+          </th>
+          <th>
+           Quantity
+          </th>
+          <th>
+           Total Price
+          </th>
+          <th>
+           Expiry Date
+          </th>
+          <th>
+           Stock Status
+          </th>
+          <th>
+           Stock Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="productsTable">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-stock">
+     <div class="page-heading">
+      <div>
+       <h3>
+        Stock Out Medicines
+       </h3>
+       <p>
+        Products with zero available quantity that need restocking.
+       </p>
+      </div>
+      <button class="btn light" onclick="exportCSV()">
+       ⇩ Export list
+      </button>
+     </div>
+     <div class="notice">
+      ⚠ These medicines are out of stock. Please arrange replenishment as soon as possible.
+     </div>
+     <div class="panel">
+      <div class="table-tools">
+       <input id="stockSearch" oninput="renderStock()" placeholder="Search out-of-stock medicines…"/>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Product Name
+          </th>
+          <th>
+           Category
+          </th>
+          <th>
+           Quantity
+          </th>
+          <th>
+           Total Price
+          </th>
+          <th>
+           Expiry Date
+          </th>
+         </tr>
+        </thead>
+        <tbody id="stockTable">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-expired">
+     <div class="page-heading">
+      <div>
+       <h3>
+        Expired Medicines
+       </h3>
+       <p>
+        Review expired items and remove them from active inventory.
+       </p>
+      </div>
+      <button class="btn light" onclick="exportCSV()">
+       ⇩ Export list
+      </button>
+     </div>
+     <div class="notice" style="background:#fff1e9;color:#a45c3d">
+      ⏱ Check expiry dates regularly. Expired medicine should not be dispensed.
+     </div>
+     <div class="panel">
+      <div class="table-tools">
+       <input id="expiredSearch" oninput="renderExpired()" placeholder="Search expired medicines…"/>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Product Name
+          </th>
+          <th>
+           Category
+          </th>
+          <th>
+           Quantity
+          </th>
+          <th>
+           Total Price
+          </th>
+          <th>
+           Expiry Date
+          </th>
+         </tr>
+        </thead>
+        <tbody id="expiredTable">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-sales">
+     <div class="page-heading">
+      <div>
+       <h3>
+        Sales Overview
+       </h3>
+       <p>
+        Track revenue, cost, profit, and average order value.
+       </p>
+      </div>
+      <button class="btn" onclick="exportCSV()">
+       ⇩ Export report
+      </button>
+     </div>
+     <div class="cards">
+      <div class="stat">
+       <div class="stat-top">
+        Total Revenue
+        <span class="stat-icon">
+         ₱
+        </span>
+       </div>
+       <strong>
+        ₱25,398
+       </strong>
+       <small>
+        ↑ 12.8% from last month
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Total Profit
+        <span class="stat-icon">
+         ↗
+        </span>
+       </div>
+       <strong>
+        ₱16,853
+       </strong>
+       <small>
+        ↑ 8.4% from last month
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Total Cost
+        <span class="stat-icon">
+         ₱
+        </span>
+       </div>
+       <strong id="inventoryCostValue">
+        ₱0
+       </strong>
+       <small>
+        Estimated inventory value (quantity × listed price)
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Average Order Value
+        <span class="stat-icon">
+         ⌁
+        </span>
+       </div>
+       <strong>
+        ₱378
+       </strong>
+       <small>
+        Per completed order
+       </small>
+      </div>
+     </div>
+     <div class="panel">
+      <div class="panel-head">
+       <div>
+        <h3>
+         Monthly Revenue
+        </h3>
+        <p>
+         Sample sales data · Philippine pesos
+        </p>
+       </div>
+      </div>
+      <div class="chart" id="salesChart2">
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-orders">
+     <div class="page-heading">
+      <div>
+       <h3>
+        Orders
+       </h3>
+       <p>
+        Monitor orders by date range and fulfillment status.
+       </p>
+      </div>
+      <button class="btn light" onclick="exportCSV()">
+       ⇩ Export orders
+      </button>
+     </div>
+     <div class="cards">
+      <div class="stat">
+       <div class="stat-top">
+        Total Orders
+        <span class="stat-icon">
+         🛒
+        </span>
+       </div>
+       <strong>
+        2,358
+       </strong>
+       <small>
+        All order records
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Completed Orders
+        <span class="stat-icon">
+         ✓
+        </span>
+       </div>
+       <strong>
+        892
+       </strong>
+       <small>
+        Successfully completed
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Cancelled Orders
+        <span class="stat-icon">
+         ×
+        </span>
+       </div>
+       <strong>
+        9
+       </strong>
+       <small class="negative">
+        Cancelled orders
+       </small>
+      </div>
+      <div class="stat">
+       <div class="stat-top">
+        Pending Orders
+        <span class="stat-icon">
+         ◷
+        </span>
+       </div>
+       <strong>
+        17
+       </strong>
+       <small>
+        Awaiting processing
+       </small>
+      </div>
+     </div>
+     <div class="panel">
+      <div class="panel-head">
+       <div>
+        <h3>
+         Order Records
+        </h3>
+        <p>
+         Use the tabs to filter orders.
+        </p>
+       </div>
+       <div class="order-tabs" id="orderTabs">
+        <button class="active" data-filter="Today">
+         Today
+        </button>
+        <button data-filter="This week">
+         This week
+        </button>
+        <button data-filter="This month">
+         This month
+        </button>
+        <button data-filter="Cancelled">
+         Cancelled
+        </button>
+       </div>
+      </div>
+      <div class="table-tools">
+       <input id="orderSearch" oninput="renderOrders()" placeholder="Search order ID or product…"/>
+       <select id="orderStatus" onchange="renderOrders()">
+        <option value="">
+         All statuses
+        </option>
+        <option>
+         Completed
+        </option>
+        <option>
+         Pending
+        </option>
+        <option>
+         Cancelled
+        </option>
+       </select>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Order ID
+          </th>
+          <th>
+           Product Ordered
+          </th>
+          <th>
+           Total Amount
+          </th>
+          <th>
+           Date / Time
+          </th>
+          <th>
+           Status
+          </th>
+          <th>
+           Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="ordersTable">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <section class="page" id="page-category">
+     <div class="page-heading">
+      <div>
+       <h3 id="categoryTitle">
+        Antibiotics
+       </h3>
+       <p>
+        Products filed under this medicine category.
+       </p>
+      </div>
+      <button class="btn light" onclick="navigate('products')">
+       ← All products
+      </button>
+     </div>
+     <div class="panel">
+      <div class="table-tools">
+       <input id="categorySearch" oninput="renderCategory()" placeholder="Search in this category…"/>
+      </div>
+      <div class="table-wrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Product Name
+          </th>
+          <th>
+           Category
+          </th>
+          <th>
+           Quantity
+          </th>
+          <th>
+           Total Price
+          </th>
+          <th>
+           Expiry Date
+          </th>
+          <th>
+           Stock Status
+          </th>
+          <th>
+           Stock Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="categoryTable">
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <div class="footer">
+     G-Value Pharmacy Management System · Demo interface — sample data only
+    </div>
+   </main>
+  </div>
+  <nav aria-label="Quick navigation" class="bottom-nav" id="bottomNav">
+   <button class="active" data-bottom-page="overview">
+    <span>
+     ▦
+    </span>
+    Overview
+   </button>
+   <button data-bottom-page="products">
+    <span>
+     ▣
+    </span>
+    Products
+   </button>
+   <button data-bottom-page="sales">
+    <span>
+     ▥
+    </span>
+    Sales
+   </button>
+   <button data-bottom-page="orders">
+    <span>
+     🛒
+    </span>
+    Orders
+   </button>
+  </nav>
+  <div aria-labelledby="addProductTitle" aria-modal="true" class="add-modal" id="addProductModal" role="dialog">
+   <div class="add-dialog">
+    <h3 id="addProductTitle">
+     Add New Product
+    </h3>
+    <p>
+     Fill in the medicine details below.
+    </p>
+    <form id="addProductForm">
+     <div class="add-form">
+      <div class="add-field full">
+       <label for="newProductName">
+        Product name *
+       </label>
+       <input id="newProductName" maxlength="100" placeholder="e.g. Paracetamol 500mg" required=""/>
+      </div>
+      <div class="add-field">
+       <label for="newProductCategory">
+        Category *
+       </label>
+       <select id="newProductCategory" required="">
+       </select>
+      </div>
+      <div class="add-field">
+       <label for="newProductQty">
+        Quantity *
+       </label>
+       <input id="newProductQty" min="0" required="" step="1" type="number" value="10"/>
+      </div>
+      <div class="add-field">
+       <label for="newProductPrice">
+        Price (₱) *
+       </label>
+       <input id="newProductPrice" min="0" required="" step="0.01" type="number" value="50"/>
+      </div>
+      <div class="add-field">
+       <label for="newProductExpiry">
+        Expiry date *
+       </label>
+       <input id="newProductExpiry" required="" type="date"/>
+      </div>
+     </div>
+     <div class="add-actions">
+      <button class="btn light" onclick="closeAddProduct()" type="button">
+       Cancel
+      </button>
+      <button class="btn" type="submit">
+       ＋ Save product
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <div class="toast" id="toast">
+  </div>
+  <script>
+   const categories=[
+ ['Antibiotics','✚',120],['Pain Relievers','✦',95],['Vitamins & Supplements','❋',75],['Antiviral Drugs','◈',50],
+ ['Diabetes Care','⌁',65],['Cardiovascular','♡',80],['Allergy Medications','☼',40],['Respiratory Medicines','≋',55]
+];
+let products=[
+ {name:'Amoxicillin',category:'Antibiotics',qty:0,price:78,expiry:'07/27/2026'},
+ {name:'Doxycycline',category:'Antibiotics',qty:18,price:125,expiry:'08/16/2026'},
+ {name:'Azithromycin',category:'Antibiotics',qty:8,price:215,expiry:'05/20/2026'},
+ {name:'Cephalexin',category:'Antibiotics',qty:36,price:92,expiry:'11/22/2027'},
+ {name:'Ciprofloxacin',category:'Antibiotics',qty:0,price:110,expiry:'02/14/2027'},
+ {name:'Ibuprofen',category:'Pain Relievers',qty:95,price:45,expiry:'09/12/2027'},
+ {name:'Paracetamol',category:'Pain Relievers',qty:120,price:32,expiry:'12/10/2027'},
+ {name:'Mefenamic Acid',category:'Pain Relievers',qty:6,price:58,expiry:'10/01/2027'},
+ {name:'Vitamin C',category:'Vitamins & Supplements',qty:75,price:89,expiry:'03/19/2028'},
+ {name:'Multivitamins',category:'Vitamins & Supplements',qty:44,price:145,expiry:'06/30/2028'},
+ {name:'Acyclovir',category:'Antiviral Drugs',qty:50,price:198,expiry:'07/08/2027'},
+ {name:'Oseltamivir',category:'Antiviral Drugs',qty:18,price:325,expiry:'08/20/2027'},
+ {name:'Metformin',category:'Diabetes Care',qty:65,price:72,expiry:'12/16/2027'},
+ {name:'Insulin Glargine',category:'Diabetes Care',qty:12,price:690,expiry:'01/10/2027'},
+ {name:'Amlodipine',category:'Cardiovascular',qty:80,price:65,expiry:'04/25/2028'},
+ {name:'Losartan',category:'Cardiovascular',qty:1,price:95,expiry:'06/12/2027'},
+ {name:'Cetirizine',category:'Allergy Medications',qty:40,price:38,expiry:'09/22/2027'},
+ {name:'Loratadine',category:'Allergy Medications',qty:0,price:52,expiry:'02/17/2028'},
+ {name:'Salbutamol',category:'Respiratory Medicines',qty:55,price:115,expiry:'03/10/2028'},
+ {name:'Montelukast',category:'Respiratory Medicines',qty:14,price:180,expiry:'04/01/2028'},
+ {name:'Expired Aspirin',category:'Cardiovascular',qty:11,price:35,expiry:'01/15/2024'},
+ {name:'Expired Antacid',category:'Pain Relievers',qty:5,price:42,expiry:'10/20/2023'}
+];
+// Restore the complete inventory from this browser when available.
+try {
+  const savedInventory = JSON.parse(localStorage.getItem('gValuePharmacyInventory') || 'null');
+  if (Array.isArray(savedInventory)) products = savedInventory;
+  else {
+    const savedAddedProducts = JSON.parse(localStorage.getItem('gValuePharmacyAddedProducts') || '[]');
+    if (Array.isArray(savedAddedProducts)) products.push(...savedAddedProducts);
+  }
+} catch (err) { console.warn('Saved inventory could not be loaded.', err); }
+
+const orders=[
+ {id:'ORD-2358',product:'Paracetamol 500mg × 2',amount:64,date:'Today, 10:24 AM',status:'Completed',period:'Today'},
+ {id:'ORD-2357',product:'Amoxicillin 250mg × 1',amount:78,date:'Today, 09:48 AM',status:'Pending',period:'Today'},
+ {id:'ORD-2356',product:'Vitamin C × 3',amount:267,date:'Today, 09:12 AM',status:'Completed',period:'Today'},
+ {id:'ORD-2355',product:'Cetirizine 10mg × 2',amount:76,date:'Yesterday, 04:36 PM',status:'Cancelled',period:'Cancelled'},
+ {id:'ORD-2354',product:'Metformin 500mg × 1',amount:72,date:'Yesterday, 02:20 PM',status:'Completed',period:'This week'},
+ {id:'ORD-2353',product:'Ibuprofen 200mg × 2',amount:90,date:'Oct 16, 11:30 AM',status:'Completed',period:'This week'},
+ {id:'ORD-2352',product:'Amlodipine 5mg × 1',amount:65,date:'Oct 15, 01:10 PM',status:'Pending',period:'This week'},
+ {id:'ORD-2351',product:'Loratadine 10mg × 1',amount:52,date:'Oct 14, 12:06 PM',status:'Cancelled',period:'Cancelled'},
+ {id:'ORD-2350',product:'Multivitamins × 1',amount:145,date:'Oct 12, 03:15 PM',status:'Completed',period:'This month'},
+ {id:'ORD-2349',product:'Losartan 50mg × 1',amount:95,date:'Oct 11, 10:04 AM',status:'Completed',period:'This month'},
+ {id:'ORD-2348',product:'Salbutamol × 1',amount:115,date:'Oct 10, 02:41 PM',status:'Completed',period:'This month'}
+];
+let activeOrderFilter='Today',activeCategory='Antibiotics',toastTimer;
+const money=n=>'₱'+Number(n).toLocaleString('en-PH',{minimumFractionDigits:0,maximumFractionDigits:2});
+function saveInventory(){try{localStorage.setItem('gValuePharmacyInventory',JSON.stringify(products));}catch(err){console.warn('Could not save inventory in this browser.',err);}}
+function refreshInventoryUI(){
+  const total=products.length, low=products.filter(p=>p.qty>0&&p.qty<15).length, out=products.filter(p=>p.qty===0).length, inStock=products.filter(p=>p.qty>=15).length;
+  const inventoryValue=products.reduce((sum,p)=>sum+(Number(p.qty)||0)*(Number(p.price)||0),0);
+  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+  set('statProducts',total.toLocaleString());set('statLow',low.toLocaleString());
+  set('productsTotalCount',total.toLocaleString());set('productsLowCount',low.toLocaleString());set('productsOutCount',out.toLocaleString());
+  set('inventorySummaryCount',total.toLocaleString());set('inventoryCostValue',money(inventoryValue));
+  const denom=total||1, inPct=Math.round(inStock/denom*100), lowPct=Math.round(low/denom*100), outPct=Math.max(0,100-inPct-lowPct);
+  set('inventoryInStockPct',inPct+'%');set('inventoryLowStockPct',lowPct+'%');set('inventoryOutStockPct',outPct+'%');
+  const donut=document.querySelector('.donut');if(donut)donut.style.background=`conic-gradient(#248d72 0 ${inPct}%,#8bdcbe ${inPct}% ${inPct+lowPct}%,#d7f2e8 ${inPct+lowPct}% 100%)`;
+  const productStats=document.querySelector('#page-products .cards');if(productStats){const stats=productStats.querySelectorAll('.stat strong');if(stats[0])stats[0].textContent=total.toLocaleString();if(stats[2])stats[2].textContent=low.toLocaleString();if(stats[3])stats[3].textContent=out.toLocaleString();}
+}
+function restockProduct(index){
+  const product=products[index];if(!product)return;
+  const amount=Number(prompt(`Add how many units to ${product.name}?`, '10'));
+  if(!Number.isInteger(amount)||amount<=0){notify('Enter a whole number greater than zero.');return;}
+  product.qty+=amount;saveInventory();
+  renderProducts();renderStock();renderExpired();renderCategory();renderCategories();refreshInventoryUI();
+  notify(`${product.name}: stock increased by ${amount} units.`);
+}
+function notify(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+function navigate(page,category){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const el=document.getElementById('page-'+page);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page&&(page!=='category'||b.dataset.category===category)));const titles={overview:'Overview',products:'Products',stock:'Stock Out Medicines',expired:'Expired Medicines',sales:'Total Sales',orders:'Orders',category:category||activeCategory};document.getElementById('pageTitle').textContent=titles[page]||'Overview';document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.bottomPage===page||(page==='category'&&b.dataset.bottomPage==='products')));if(page==='category'){activeCategory=category||activeCategory;document.getElementById('categoryTitle').textContent=activeCategory;renderCategory()}document.getElementById('sidebar').classList.remove('open')}
+document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(b)navigate(b.dataset.page)});
+document.getElementById('categoryNav').addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(b)navigate(b.dataset.page,b.dataset.category)});
+
+document.getElementById('bottomNav').addEventListener('click',e=>{const b=e.target.closest('button[data-bottom-page]');if(b)navigate(b.dataset.bottomPage)});
+function statusOf(p){return p.qty===0?'Out of Stock':p.qty<15?'Low Stock':'In Stock'}
+function pill(status){const cls=status==='Completed'?'':status==='Pending'?'warn':status==='Cancelled'?'danger':status==='Out of Stock'?'danger':status==='Low Stock'?'warn':'';return `<span class="pill ${cls}">${status}</span>`}
+function productRows(list){if(!list.length)return '<tr><td colspan="7" class="empty">No matching products found.</td></tr>';return list.map(p=>`<tr><td><strong>${p.name}</strong></td><td>${p.category}</td><td>${p.qty} ${p.qty===1?'unit':'units'}</td><td>${money(p.price)}</td><td>${p.expiry}</td><td>${pill(statusOf(p))}</td><td><button class="btn light small" onclick="restockProduct(${products.indexOf(p)})">＋ Add stock</button></td></tr>`).join('')}
+function renderProducts(){const q=(document.getElementById('productSearch')?.value||'').toLowerCase(),cat=document.getElementById('productCategory')?.value||'',sf=document.getElementById('stockFilter')?.value||'';let list=products.filter(p=>(p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q))&&(!cat||p.category===cat)&&(!sf||statusOf(p)===sf));document.getElementById('productsTable').innerHTML=productRows(list)}
+function renderStock(){const q=(document.getElementById('stockSearch')?.value||'').toLowerCase();let list=products.filter(p=>p.qty===0&&p.name.toLowerCase().includes(q));document.getElementById('stockTable').innerHTML=list.length?list.map(p=>`<tr><td><strong>${p.name}</strong></td><td>${p.category}</td><td>${p.qty}</td><td>${money(p.price)}</td><td>${p.expiry}</td></tr>`).join(''):'<tr><td colspan="5" class="empty">No out-of-stock products match your search.</td></tr>'}
+function expired(p){return new Date(p.expiry+' 23:59:59')<new Date()}
+function renderExpired(){const q=(document.getElementById('expiredSearch')?.value||'').toLowerCase();let list=products.filter(p=>expired(p)&&p.name.toLowerCase().includes(q));document.getElementById('expiredTable').innerHTML=list.length?list.map(p=>`<tr><td><strong>${p.name}</strong></td><td>${p.category}</td><td>${p.qty}</td><td>${money(p.price)}</td><td>${p.expiry} ${pill('Expired')}</td></tr>`).join(''):'<tr><td colspan="5" class="empty">No expired products match your search.</td></tr>'}
+function renderCategory(){const q=(document.getElementById('categorySearch')?.value||'').toLowerCase();document.getElementById('categoryTable').innerHTML=productRows(products.filter(p=>p.category===activeCategory&&p.name.toLowerCase().includes(q)))}
+function renderOrders(){const q=(document.getElementById('orderSearch')?.value||'').toLowerCase(),st=document.getElementById('orderStatus')?.value||'';let list=orders.filter(o=>(activeOrderFilter==='This month'||o.period===activeOrderFilter)&&(activeOrderFilter!=='Cancelled'||o.status==='Cancelled')&&(!st||o.status===st)&&(o.id.toLowerCase().includes(q)||o.product.toLowerCase().includes(q)));document.getElementById('ordersTable').innerHTML=list.length?list.map(o=>`<tr><td><strong>${o.id}</strong></td><td>${o.product}</td><td>${money(o.amount)}</td><td>${o.date}</td><td>${pill(o.status)}</td><td><button class="btn light small" onclick="viewOrder('${o.id}')">View</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty"><b>No orders found</b>Try another date filter or search.</td></tr>'}
+function viewOrder(id){const o=orders.find(x=>x.id===id);if(o)notify(`${o.id} · ${o.status} · ${money(o.amount)}`)}
+document.getElementById('orderTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-filter]');if(!b)return;activeOrderFilter=b.dataset.filter;document.querySelectorAll('#orderTabs button').forEach(x=>x.classList.toggle('active',x===b));renderOrders()});
+function renderRecent(){document.getElementById('recentOrders').innerHTML=orders.slice(0,5).map(o=>`<tr><td><strong>${o.id}</strong></td><td>${o.product}</td><td>${money(o.amount)}</td><td>${o.date}</td><td>${pill(o.status)}</td></tr>`).join('')}
+function renderCategories(){document.getElementById('categoryCards').innerHTML=categories.map(c=>`<button class="category" onclick="navigate('category','${c[0]}')"><div class="cat-icon">${c[1]}</div><strong>${c[0]}</strong><small>View category products</small><b>${products.filter(p=>p.category===c[0]).length}</b><small>Products recorded　→</small></button>`).join('');document.getElementById('productCategory').innerHTML='<option value="">All categories</option>'+categories.map(c=>`<option>${c[0]}</option>`).join('')}
+function updateChart(n){const months=['May','Jun','Jul','Aug','Sep','Oct'],vals=[38,54,47,68,82,96];const html=months.slice(6-n).map((m,i)=>`<div class="bar-wrap"><div class="bar" style="height:${vals[6-n+i]}%"><span>₱${Math.round(vals[6-n+i]*265)}</span></div>${m}</div>`).join('');document.getElementById('salesChart').innerHTML=html;document.getElementById('salesChart2').innerHTML=html}
+function exportCSV(){let rows=[['Product Name','Category','Quantity','Total Price','Expiry Date','Stock Status'],...products.map(p=>[p.name,p.category,p.qty,p.price,p.expiry,statusOf(p)])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='g-value-pharmacy-report.csv';a.click();URL.revokeObjectURL(url);notify('Report exported as CSV')}
+function openAddProduct(){
+  const select=document.getElementById('newProductCategory');
+  select.innerHTML=categories.map(c=>`<option value="${c[0]}">${c[0]}</option>`).join('');
+  document.getElementById('addProductModal').classList.add('show');
+  document.getElementById('newProductName').focus();
+}
+function closeAddProduct(){document.getElementById('addProductModal').classList.remove('show')}
+document.getElementById('addProductModal').addEventListener('click',e=>{if(e.target.id==='addProductModal')closeAddProduct()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAddProduct()});
+document.getElementById('addProductForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('newProductName').value.trim();
+  const category=document.getElementById('newProductCategory').value;
+  const qty=Number(document.getElementById('newProductQty').value);
+  const price=Number(document.getElementById('newProductPrice').value);
+  const dateValue=document.getElementById('newProductExpiry').value;
+  if(!name||!category||!dateValue||!Number.isFinite(qty)||qty<0||!Number.isFinite(price)||price<0){notify('Please check all product details.');return;}
+  const parts=dateValue.split('-');
+  const expiry=`${parts[1]}/${parts[2]}/${parts[0]}`;
+  const product={name,category,qty,price,expiry};
+  products.unshift(product);
+  saveInventory();
+  renderProducts();renderStock();renderExpired();renderCategory();renderCategories();refreshInventoryUI();
+  document.getElementById('addProductForm').reset();
+  closeAddProduct();
+  notify('Product added successfully!');
+});
+document.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){const q=e.target.value.trim();navigate('products');document.getElementById('productSearch').value=q;renderProducts()}});
+function init(){renderCategories();renderProducts();renderStock();renderExpired();renderOrders();renderRecent();updateChart(6);refreshInventoryUI()}
+init();
+  </script>
+ </body>
+</html>
